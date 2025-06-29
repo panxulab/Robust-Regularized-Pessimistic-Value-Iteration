@@ -13,3 +13,13 @@
 </p>
 
 Code for the Paper "Robust Offline Reinforcement Learning with Linearly Structured f-Divergence Regularization", International Conference on Machine Learning (ICML) 2025
+
+## Citation
+```
+@inproceedings{liu2024distributionally,
+  title={Robust Offline Reinforcement Learning with Linearly Structured f-Divergence Regularization},
+  author={Cheng Tang, Zhishuai Liu and Xu, Pan},
+  booktitle={International Conference on Machine Learning},
+  year={2025}
+}
+```

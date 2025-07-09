@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
-from itertools import product
-from algorithm import LSVI_LCB, DR_LSVI_LCB, DR_LSVI_LCB_KL, SRPVI_TV, SRPVI_KL, SRPVI_xi2, VA_DR_LSVI_LCB, VA_SRPVI_TV
+from algorithm import PEVI, DRPVI, DRVI_L, VA_DRPVI, R2PVI_TV, R2PVI_KL, R2PVI_xi2, VA_R2PVI_TV
 from data_collection import Offline_Dataset_Collection
 from env import American_put_option
 from dataclasses import dataclass
@@ -10,16 +9,16 @@ import time
 from train_test import train_agent_once, test_agent
 import pyrallis
 algorithm_dict = {  
-                    'LSVI_LCB' :LSVI_LCB, 
+                    'PEVI' :PEVI, 
                     # distributional robust algorithms
-                    'DR_LSVI_LCB': DR_LSVI_LCB, 
-                    'DR_LSVI_LCB_KL': DR_LSVI_LCB_KL,
-                    'VA_DR_LSVI_LCB': VA_DR_LSVI_LCB,
+                    'DRPVI': DRPVI, 
+                    'DRVI_L': DRVI_L,
+                    'VA_DRPVI': VA_DRPVI,
                     # soft distributional robust algorithms
-                    'SRPVI_TV': SRPVI_TV, 
-                    'SRPVI_KL': SRPVI_KL, 
-                    'SRPVI_xi2': SRPVI_xi2,
-                    'VA_SRPVI_TV': VA_SRPVI_TV
+                    'R2PVI_TV': R2PVI_TV, 
+                    'R2PVI_KL': R2PVI_KL, 
+                    'R2PVI_xi2': R2PVI_xi2,
+                    'VA_R2PVI_TV': VA_R2PVI_TV
                 }
 
 @dataclass
@@ -32,7 +31,7 @@ class config:
     p0: float = 0.5
     d: int = 30
     replication: int = 3
-    algorithm: str ='DR_LSVI_LCB'
+    algorithm: str ='PEVI'
     
 @pyrallis.wrap()
 def simulate(args: config):
@@ -44,7 +43,7 @@ def simulate(args: config):
         for rep in range(args.replication):
             Offline_Dataset = Offline_Dataset_Collection(args.N, American_put_option(args.p0, args.d, seed=rep))
             start_time = time.time()
-            agent = train_agent_once(Offline_Dataset, algorithm_dict[args.algorithm], args.p0, args.d, args.H, args.N, args.beta, args.lam, rho)
+            agent = train_agent_once(Offline_Dataset, algorithm_dict[args.algorithm], args.d, args.H, args.beta, args.lam, rho)
             end_time = time.time()
             T += end_time - start_time
             agent_dic.append(agent)
@@ -53,6 +52,7 @@ def simulate(args: config):
         T2 = 100
         R_mean, R_std = test_agent(agent_dic, args.replication, PROB, args.d, args.H, T2)
         print(R_mean, R_std)
+        
 if __name__ == '__main__':
     simulate()
     

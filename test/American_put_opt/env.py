@@ -1,7 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-from itertools import product
 
 class American_put_option():
     def __init__(self, p0, d, seed=1):

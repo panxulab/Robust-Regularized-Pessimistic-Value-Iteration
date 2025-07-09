@@ -55,7 +55,7 @@ class meta_algorithm():
             #end_time = time.time()
             #print('Time:', end_time - start_time)
 
-class LSVI_LCB(meta_algorithm):
+class PEVI(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         self.lam = lam
         self.H = H
@@ -91,7 +91,7 @@ class LSVI_LCB(meta_algorithm):
     
 
 # distributional robust algorithms
-class DR_LSVI_LCB(meta_algorithm):
+class DRPVI(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
         
@@ -122,7 +122,7 @@ class DR_LSVI_LCB(meta_algorithm):
             nu_h[i] = - result.fun
         return nu_h
             
-class DR_LSVI_LCB_KL(meta_algorithm):
+class DRVI_L(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
 
@@ -154,7 +154,7 @@ class DR_LSVI_LCB_KL(meta_algorithm):
             #print(nu_h[i])
         return nu_h
 
-class VA_DR_LSVI_LCB(meta_algorithm):
+class VA_DRPVI(meta_algorithm):
     def __init__(self, pre_agent, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
         self.pre_agent = pre_agent
@@ -240,7 +240,7 @@ class VA_DR_LSVI_LCB(meta_algorithm):
 
 # regularized distributional robust algorithms
                                     
-class SRPVI_TV(meta_algorithm):
+class R2PVI_TV(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
         
@@ -271,7 +271,7 @@ class SRPVI_TV(meta_algorithm):
         
         return w_h
     
-class SRPVI_KL(meta_algorithm):
+class R2PVI_KL(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
 
@@ -296,7 +296,7 @@ class SRPVI_KL(meta_algorithm):
         #print(w_h)
         return - rho * np.log(np.maximum(w_h, np.exp(-self.H/rho)))
     
-class SRPVI_xi2(meta_algorithm):
+class R2PVI_xi2(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
         
@@ -327,7 +327,7 @@ class SRPVI_xi2(meta_algorithm):
             nu_h[i] = -result.fun
         return nu_h
     
-class VA_SRPVI_TV(meta_algorithm):
+class VA_R2PVI_TV(meta_algorithm):
     def __init__(self, pre_agent, d, beta, H, lam, dataset, Rho):
         super().__init__(d, beta, H, lam, dataset, Rho)
         self.pre_agent = pre_agent

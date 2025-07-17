@@ -57,14 +57,7 @@ class meta_algorithm():
 
 class PEVI(meta_algorithm):
     def __init__(self, d, beta, H, lam, dataset, Rho):
-        self.lam = lam
-        self.H = H
-        self.d = d
-        self.K = len(dataset['S'])
-        self.beta = beta
-        self.w = [np.zeros(self.d) for _ in range(self.H)]
-        self.Lambda = [self.lam * np.diag(np.ones(self.d)) for _ in range(self.H)]
-        self.dataset = dataset
+        super().__init__(d, beta, H, lam, dataset, Rho)
    
     def update_Q(self):
         # Backward induction
@@ -89,6 +82,11 @@ class PEVI(meta_algorithm):
                     w_h += Lambda_h_inverse @ (phi_tau_h * (V_tau_h_plus_one))
             self.w[h] = w_h
     
+    def get_Q_func(self, phi, h):
+        Lambda_h_inverse = np.linalg.inv(self.Lambda[h])
+        penalty = self.beta * np.sqrt(phi @ Lambda_h_inverse @ phi)
+        Q_h = np.min([(self.w[h] @ phi - penalty), self.H - h])
+        return Q_h
 
 # distributional robust algorithms
 class DRPVI(meta_algorithm):

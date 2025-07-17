@@ -1,7 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from itertools import product
-from scipy.optimize import minimize
 
 class LinearMDP_train():
     def __init__(self, action_space, delta, xi_norm, seed=1):
@@ -79,9 +76,10 @@ class LinearMDP_train():
         self.next_state(phi)
         self.h += 1
         
-        
 class LinearMDP_test():
+    
     """Perturbed evironment"""
+    
     def __init__(self,  nominal_MDP, q, seed=1):
         np.random.seed(seed)
         self.state_space = nominal_MDP.state_space
@@ -154,3 +152,5 @@ class LinearMDP_test():
         self.generate_reward(phi)
         self.next_state(phi)
         self.h += 1
+
+

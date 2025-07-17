@@ -1,5 +1,7 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+from itertools import product
 
 def Offline_Dataset_Collection(sample_size, env, seed=1):
     np.random.seed(seed)

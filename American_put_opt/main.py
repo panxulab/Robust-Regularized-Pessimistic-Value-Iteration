@@ -26,7 +26,7 @@ class config:
     N: int = 100
     H: int =  20
     beta: float = 0.1
-    lam: float = 1
+    k: float = 1
     rho_list: tuple = (0.025, 0.03)
     p0: float = 0.5
     d: int = 30
@@ -37,13 +37,13 @@ class config:
 def simulate(args: config):
 
     for rho in args.rho_list:
-        print(rho)
+        #print(rho)
         agent_dic = []
         T = 0
         for rep in range(args.replication):
-            Offline_Dataset = Offline_Dataset_Collection(args.N, American_put_option(args.p0, args.d, seed=rep))
+            Offline_Dataset = Offline_Dataset_Collection(args.H, args.N, American_put_option(args.p0, args.d, seed=rep))
             start_time = time.time()
-            agent = train_agent_once(Offline_Dataset, algorithm_dict[args.algorithm], args.d, args.H, args.beta, args.lam, rho)
+            agent = train_agent_once(Offline_Dataset, algorithm_dict[args.algorithm], args.d, args.H, args.beta, args.k, rho)
             end_time = time.time()
             T += end_time - start_time
             agent_dic.append(agent)

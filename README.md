@@ -14,6 +14,42 @@
 
 Code for the Paper "Robust Offline Reinforcement Learning with Linearly Structured f-Divergence Regularization", International Conference on Machine Learning (ICML) 2025
 
+## Experiments
+
+### Simulated Linear MDP
+
+In the Simulated Linear MDP task, the environment contains parameter and hyperparameter as follows:
+- T1: Number of training episode
+- H: Horizon
+- beta: $\beta$ in the paper, controls the penalty
+- gamma : $\gamma$ in the paper
+- xi_norm, delta: Parameters in the environment
+- T2: Number of test episodes
+
+
+To run the experiments, use the following commands:
+```bash
+cd Simulated_Linear_MDP
+python main.py --T1 100 --H 3 ...
+```
+
+### American Put Option
+In the American Put Option task, the environment contains parameter and hyperparameter as follows:
+
+- N: Sample size
+- H: Horizon
+- beta: $\beta$ in the paper, controls the penalty
+- gamma : $\gamma$ in the paper
+- p0 : Perturbation of the environment
+- d: Dimention of the feature mapping
+
+
+To run the experiments, use the following commands:
+```bash
+cd American_put_opt
+python main.py --N 100 --H 20 ...
+```
+
 ## Citation
 ```
 @inproceedings{liu2024distributionally,

@@ -8,7 +8,8 @@ from dataclasses import dataclass
 from itertools import product
 from train_test import train_agent_once, test_agent
 import pyrallis
-from typing import Tuple, Dict, List
+from typing import Dict, List
+
 algorithm_dict = {  
                     'PEVI' :PEVI, 
                     # distributional robust algorithms
@@ -27,10 +28,10 @@ class config:
     T1: int = 100                  # Number of training episodes
     H: int = 3                     # Horizon length
     beta: float = 1                # Regularization parameter
-    k: float = 0.1                 # k parameter
+    gamma: float = 0.1                 # gamma parameter
     delta: float = 0.3             # Delta parameter
     xi_norm: float = 0.2           # xi norm parameter
-    rho: float = 0.1               # Rho parameter
+    rho: float = 0.1               # rho parameter
     lam: float = 0.1               # Lambda parameter
     fail_state: str = 'x4'         # Fail state identifier
     replication: int = 20          # Number of replications
@@ -70,7 +71,7 @@ def simulate(args: config) -> Dict[str, Dict[str, List[float]]]:
                     action_space=action_space,
                     beta=args.beta,
                     H=args.H,
-                    lam=args.k,
+                    lam=args.gamma,
                     Rho=args.lam,
                     theta=env.theta,
                     fail_state=args.fail_state
@@ -82,7 +83,7 @@ def simulate(args: config) -> Dict[str, Dict[str, List[float]]]:
                     action_space=action_space,
                     beta=args.beta,
                     H=args.H,
-                    lam=args.k,
+                    lam=args.gamma,
                     Rho=Rho,
                     theta=env.theta,
                     fail_state=args.fail_state
@@ -113,7 +114,7 @@ def simulate(args: config) -> Dict[str, Dict[str, List[float]]]:
     plt.grid(alpha=0.3)
     plt.xlabel('Perturbation', size=16)
     plt.ylabel('Average reward', size=16)
-    plt.savefig(f'result__{args.rho}.pdf', dpi=1000, bbox_inches='tight', pad_inches=0.0)
+    plt.savefig(f'result_{args.lam}.pdf', dpi=1000, bbox_inches='tight', pad_inches=0.0)
     
     return results
 

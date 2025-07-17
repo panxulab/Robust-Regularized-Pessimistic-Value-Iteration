@@ -12,7 +12,10 @@
 <sup>†</sup> Duke University
 </p>
 
-Code for the Paper "Robust Offline Reinforcement Learning with Linearly Structured f-Divergence Regularization", International Conference on Machine Learning (ICML) 2025
+Code for the Paper "Robust Offline Reinforcement Learning with Linearly Structured f-Divergence Regularization", International Conference on Machine Learning (ICML) 2025.  All experiments are conducted on a machine with
+an 11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
+processor, featuring 8 logical CPUs, 4 physical cores, and
+2 threads per core. 
 
 ## Experiments
 
